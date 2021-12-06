@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
+using System.Windows;
+using Microsoft.Win32;
 
 namespace Denoiser
 {
@@ -21,12 +24,23 @@ namespace Denoiser
         public MainWindow()
         {
             InitializeComponent();
+            
         }
         
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Изображение сохранено");
             App.ImageSaving();
+        }
+
+        private void btnFile_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == true)
+            {
+                
+                mainImage.Source = new BitmapImage(new Uri(openFileDialog.FileName));
+            }
         }
     }
 }
