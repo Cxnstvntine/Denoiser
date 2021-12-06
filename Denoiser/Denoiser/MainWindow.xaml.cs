@@ -29,16 +29,25 @@ namespace Denoiser
         
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Image files (*.PNG)|*.PNG";
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                PngBitmapEncoder pngBitmapEncoder = new PngBitmapEncoder();
+                pngBitmapEncoder.Frames.Add(BitmapFrame.Create(mainImage.Source as BitmapSource));
+                FileStream fileStream = new FileStream(saveFileDialog.FileName, FileMode.Create);
+                pngBitmapEncoder.Save(fileStream);      
+                
+            }
             MessageBox.Show("Изображение сохранено");
-            App.ImageSaving();
         }
 
         private void btnFile_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image files (*.PNG)|*.PNG";
             if (openFileDialog.ShowDialog() == true)
             {
-                
                 mainImage.Source = new BitmapImage(new Uri(openFileDialog.FileName));
             }
         }

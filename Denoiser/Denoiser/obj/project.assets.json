@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Master\\RiderProjects\\Denoiser\\Denoiser\\Denoiser.csproj",
+      "projectUniqueName": "C:\\Users\\Master\\RiderProjects\\Denoiser\\Denoiser\\Denoiser\\Denoiser.csproj",
       "projectName": "Denoiser",
-      "projectPath": "C:\\Users\\Master\\RiderProjects\\Denoiser\\Denoiser\\Denoiser.csproj",
+      "projectPath": "C:\\Users\\Master\\RiderProjects\\Denoiser\\Denoiser\\Denoiser\\Denoiser.csproj",
       "packagesPath": "C:\\Users\\Master\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Master\\RiderProjects\\Denoiser\\Denoiser\\obj\\",
+      "outputPath": "C:\\Users\\Master\\RiderProjects\\Denoiser\\Denoiser\\Denoiser\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Master\\AppData\\Roaming\\NuGet\\NuGet.Config"
