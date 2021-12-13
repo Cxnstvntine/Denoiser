@@ -24,7 +24,7 @@ namespace Denoiser
         public MainWindow()
         {
             InitializeComponent();
-            
+            string zalupa;
         }
         
         private void btnSave_Click(object sender, RoutedEventArgs e)
