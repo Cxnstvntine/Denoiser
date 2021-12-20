@@ -19,14 +19,15 @@ using Microsoft.Win32;
 
 namespace Denoiser
 {
-   
     public partial class MainWindow : Window
     {
+        private System.Drawing.Image newImage;
+
         public MainWindow()
         {
             InitializeComponent();
         }
-        
+
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -36,9 +37,10 @@ namespace Denoiser
                 PngBitmapEncoder pngBitmapEncoder = new PngBitmapEncoder();
                 pngBitmapEncoder.Frames.Add(BitmapFrame.Create(mainImage.Source as BitmapSource));
                 FileStream fileStream = new FileStream(saveFileDialog.FileName, FileMode.Create);
-                pngBitmapEncoder.Save(fileStream);      
-                
+                pngBitmapEncoder.Save(fileStream);
+
             }
+
             MessageBox.Show("Изображение сохранено");
         }
 
@@ -49,7 +51,15 @@ namespace Denoiser
             if (openFileDialog.ShowDialog() == true)
             {
                 mainImage.Source = new BitmapImage(new Uri(openFileDialog.FileName));
+                newImage = System.Drawing.Image.FromFile(openFileDialog.FileName);
             }
+        }
+
+        private void btnDenoise_Click(object sender, RoutedEventArgs e)
+        {
+            App.Denoize(newImage);
+            newImage.Save("Temp/temp.png");
+            mainImage.Source = new BitmapImage(new Uri("Temp/temp.png"));
         }
     }
 }

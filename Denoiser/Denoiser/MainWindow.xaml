@@ -17,12 +17,11 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Button x:Name = "btnSave" Grid.Column="2" Grid.Row="2" Click="btnSave_Click" Width="100" Height="30">Save</Button>
-        <Button Name="btnFile" Grid.Column="2" Grid.Row="1" Click="btnFile_Click" Width="100" Height="30">Open</Button>
+        <Button x:Name = "BtnSave" Grid.Column="2" Grid.Row="2" Click="btnSave_Click" Width="100" Height="30">Save</Button>
+        <Button Name="BtnDenoise" Grid.Column="2" Grid.Row="1" Click="btnDenoise_Click" Width="100" Height="30">Denoise</Button>
+        <Button Name="BtnOpen" Grid.Column="2" Grid.Row="0" Click="btnFile_Click" Width="100" Height="30">Open</Button>
         <Border Grid.ColumnSpan="2" Grid.RowSpan="3" Background="White" BorderBrush="LightGray" BorderThickness = "1" Name="ImagePanel">
-            <InkCanvas x:Name = "canvas">
-                <Image x:Name = "mainImage" AllowDrop="true"></Image> 
-            </InkCanvas>
+            <Image x:Name = "mainImage"></Image> 
         </Border>
     </Grid>
 </Window>

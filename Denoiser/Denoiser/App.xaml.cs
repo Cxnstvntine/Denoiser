@@ -3,33 +3,22 @@ using System.Drawing;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 
-//Надо нормально импортнуть класс
-[System.Runtime.InteropServices.ComVisible(true)]
-[System.Serializable]
-public abstract class Bitmap : Image
-{
-    public abstract void SetPixel (int x, int y, Color color);
-    public abstract Color GetPixel (int x, int y);
-}
-//Конец класса Bitmap
-
 namespace Denoiser
 {
     public partial class App : Application
     {
-        public static Bitmap Denoize(Bitmap scrBitmap)
+        public static void Denoize(System.Drawing.Image newImage)
         {
             //Среднее значение цвета вокруг пикселя
-            
-            Color averageColor = (Color.Empty);
+            Bitmap scrBitmap = new (newImage);
             for (int i = 0; i < scrBitmap.Width; i++)
             {
                 for (int j = 0; j < scrBitmap.Height; j++)
                 {
-                    if (broken(scrBitmap.GetPixel(i, j), i , j, scrBitmap) == true)
+                    if (Broken(scrBitmap.GetPixel(i, j), i , j, scrBitmap))
                     {
                         //Ищем среднее значение пикселей вокруг
-                        averageColor = findAveragePixel(scrBitmap,i, j);
+                        Color averageColor = FindAveragePixel(scrBitmap,i, j);
                         //Меняем значение пикселя на среднее
                         scrBitmap.SetPixel(i, j, averageColor);
                     }
@@ -37,13 +26,13 @@ namespace Denoiser
 
                 }
             }            
-            return scrBitmap;
+            newImage = scrBitmap;
         }
 
-        private static Color findAveragePixel(Bitmap scrBitmap, int i, int j)
+        private static Color FindAveragePixel(Bitmap scrBitmap, int i, int j)
         {
             int count = 0;
-            Color average = (Color.Empty);
+            int a = 0, r = 0, g = 0, b = 0;
             //Если это не один из крайних пикселей
             if (i + 20 <= scrBitmap.Height)
             {
@@ -53,10 +42,10 @@ namespace Denoiser
                     {
                         for (int y = j; y < j + 20; j++)
                         {
-                            average.A += scrBitmap.GetPixel(x, y).A;
-                            average.R += scrBitmap.GetPixel(x, y).R;
-                            average.G += scrBitmap.GetPixel(x, y).G;
-                            average.B += scrBitmap.GetPixel(x, y).B;
+                            a += scrBitmap.GetPixel(x, y).A;
+                            r += scrBitmap.GetPixel(x, y).R;
+                            g += scrBitmap.GetPixel(x, y).G;
+                            b += scrBitmap.GetPixel(x, y).B;
                             
                             count++;
                         }
@@ -66,10 +55,10 @@ namespace Denoiser
                     {
                         for (int y = j; y < scrBitmap.Width; j++)
                         {
-                            average.A += scrBitmap.GetPixel(x, y).A;
-                            average.R += scrBitmap.GetPixel(x, y).R;
-                            average.G += scrBitmap.GetPixel(x, y).G;
-                            average.B += scrBitmap.GetPixel(x, y).B;
+                            a += scrBitmap.GetPixel(x, y).A;
+                            r += scrBitmap.GetPixel(x, y).R;
+                            g += scrBitmap.GetPixel(x, y).G;
+                            b += scrBitmap.GetPixel(x, y).B;
                             count++;
                         }
                     }
@@ -83,10 +72,10 @@ namespace Denoiser
                     {
                         for (int y = j; y < j + 20; j++)
                         {
-                            average.A += scrBitmap.GetPixel(x, y).A;
-                            average.R += scrBitmap.GetPixel(x, y).R;
-                            average.G += scrBitmap.GetPixel(x, y).G;
-                            average.B += scrBitmap.GetPixel(x, y).B;
+                            a += scrBitmap.GetPixel(x, y).A;
+                            r += scrBitmap.GetPixel(x, y).R;
+                            g += scrBitmap.GetPixel(x, y).G;
+                            b += scrBitmap.GetPixel(x, y).B;
                             count++;
                         }
                     }
@@ -94,25 +83,26 @@ namespace Denoiser
                     {
                         for (int y = j; y < scrBitmap.Width; j++)
                         {
-                            average.A += scrBitmap.GetPixel(x, y).A;
-                            average.R += scrBitmap.GetPixel(x, y).R;
-                            average.G += scrBitmap.GetPixel(x, y).G;
-                            average.B += scrBitmap.GetPixel(x, y).B;
+                            a += scrBitmap.GetPixel(x, y).A;
+                            r += scrBitmap.GetPixel(x, y).R;
+                            g += scrBitmap.GetPixel(x, y).G;
+                            b += scrBitmap.GetPixel(x, y).B;
                             count++;
                         }
                     }
                 }
             }
-            average.A = average.A / count;
-            average.R = average.R / count;
-            average.G = average.G / count;
-            average.B = average.B / count;
+            a /= count;
+            r /= count;
+            g /= count;
+            b /= count;
+            Color average = Color.FromArgb(a, r, g, b);
             return average;
         }
 
-        private bool broken(Color color, int x, int y, Bitmap scrBitmap)
+        private static bool Broken(Color color, int x, int y, Bitmap scrBitmap)
         {
-            Color averageColor = findAveragePixel(scrBitmap, x, y);
+            Color averageColor = FindAveragePixel(scrBitmap, x, y);
             //Если значение полей цвета пикселя не больше и не меньше среднего, то вовзращаем true
             if (color.A >= averageColor.A + 10 || color.R >= averageColor.R + 10 || color.G >= averageColor.G + 10 ||
                 color.B >= averageColor.B + 10)
