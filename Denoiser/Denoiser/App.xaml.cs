@@ -24,13 +24,12 @@ namespace Denoiser
         {    
             //Среднее значение цвета вокруг пикселя
             
-            Color averageColor = (Color.Black);
+            Color averageColor = (Color.Empty);
             for (int i = 0; i < scrBitmap.Width; i++)
             {
                 for (int j = 0; j < scrBitmap.Height; j++)
                 {
-                    averageColor  = findAveragePixel(scrBitmap);
-                    
+                    averageColor = findAveragePixel(scrBitmap);
                 }
             }            
             return scrBitmap;
