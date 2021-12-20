@@ -9,7 +9,6 @@ namespace Denoiser
     {
         public static void Denoize(System.Drawing.Image newImage)
         {
-            //Среднее значение цвета вокруг пикселя
             Bitmap scrBitmap = new (newImage);
             for (int i = 0; i < scrBitmap.Width; i++)
             {
@@ -17,8 +16,8 @@ namespace Denoiser
                 {
                     if (Broken(scrBitmap.GetPixel(i, j), i , j, scrBitmap))
                     {
-                        //Ищем среднее значение пикселей вокруг
-                        Color averageColor = FindAveragePixel(scrBitmap,i, j);
+                        //Среднее значение цвета вокруг пикселя
+                        Color averageColor = FindAveragePixel(scrBitmap,i, j); 
                         //Меняем значение пикселя на среднее
                         scrBitmap.SetPixel(i, j, averageColor);
                     }
@@ -28,7 +27,8 @@ namespace Denoiser
             }            
             newImage = scrBitmap;
         }
-
+        
+        //Ищем среднее значение пикселей вокруг
         private static Color FindAveragePixel(Bitmap scrBitmap, int i, int j)
         {
             int count = 0;
