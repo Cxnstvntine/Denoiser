@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Denoiser"
         mc:Ignorable="d"
         Title="Denoiser" Height="450" Width="800">
-    <Grid Margin="10">
+    <Grid Margin="10" >
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
