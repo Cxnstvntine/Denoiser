@@ -7,9 +7,8 @@ namespace Denoiser
 {
     public partial class App : Application
     {
-        public static void Denoize(System.Drawing.Image newImage)
+        public static Bitmap Denoize(System.Drawing.Bitmap scrBitmap)
         {
-            Bitmap scrBitmap = new (newImage);
             for (int i = 0; i < scrBitmap.Width; i++)
             {
                 for (int j = 0; j < scrBitmap.Height; j++)
@@ -24,8 +23,9 @@ namespace Denoiser
                     //Иначе ничего не делаем
 
                 }
-            }            
-            newImage = scrBitmap;
+            }
+
+            return scrBitmap;
         }
         
         //Ищем среднее значение пикселей вокруг
@@ -34,13 +34,13 @@ namespace Denoiser
             int count = 0;
             int a = 0, r = 0, g = 0, b = 0;
             //Если это не один из крайних пикселей
-            if (i + 20 <= scrBitmap.Height)
+            if (i + 1 <= scrBitmap.Height)
             {
-                for (int x = i; x < i + 20; x++)
+                for (int x = i; x < i + 1; x++)
                 {
-                    if (j + 20 <= scrBitmap.Width)
+                    if (j + 1 <= scrBitmap.Width)
                     {
-                        for (int y = j; y < j + 20; j++)
+                        for (int y = j; y < j + 1; j++)
                         {
                             a += scrBitmap.GetPixel(x, y).A;
                             r += scrBitmap.GetPixel(x, y).R;
@@ -68,9 +68,9 @@ namespace Denoiser
             {
                 for (int x = i; x < scrBitmap.Height; x++)
                 {
-                    if (j + 20 <= scrBitmap.Width)
+                    if (j + 1 <= scrBitmap.Width)
                     {
-                        for (int y = j; y < j + 20; j++)
+                        for (int y = j; y < j + 1; j++)
                         {
                             a += scrBitmap.GetPixel(x, y).A;
                             r += scrBitmap.GetPixel(x, y).R;

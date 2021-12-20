@@ -21,7 +21,8 @@ namespace Denoiser
 {
     public partial class MainWindow : Window
     {
-        private System.Drawing.Image newImage;
+        public Bitmap newImage;
+        private bool loaded;
 
         public MainWindow()
         {
@@ -30,18 +31,23 @@ namespace Denoiser
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Image files (*.PNG)|*.PNG";
-            if (saveFileDialog.ShowDialog() == true)
+            if (loaded)
             {
-                PngBitmapEncoder pngBitmapEncoder = new PngBitmapEncoder();
-                pngBitmapEncoder.Frames.Add(BitmapFrame.Create(mainImage.Source as BitmapSource));
-                FileStream fileStream = new FileStream(saveFileDialog.FileName, FileMode.Create);
-                pngBitmapEncoder.Save(fileStream);
-
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "Image files (*.PNG)|*.PNG";
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    PngBitmapEncoder pngBitmapEncoder = new PngBitmapEncoder();
+                    pngBitmapEncoder.Frames.Add(BitmapFrame.Create(mainImage.Source as BitmapSource));
+                    FileStream fileStream = new FileStream(saveFileDialog.FileName, FileMode.Create);
+                    pngBitmapEncoder.Save(fileStream);
+                }
+                MessageBox.Show("Изображение сохранено");
             }
-
-            MessageBox.Show("Изображение сохранено");
+            else
+            {
+                MessageBox.Show("Сначала загрузите изображение");
+            }
         }
 
         private void btnFile_Click(object sender, RoutedEventArgs e)
@@ -51,15 +57,23 @@ namespace Denoiser
             if (openFileDialog.ShowDialog() == true)
             {
                 mainImage.Source = new BitmapImage(new Uri(openFileDialog.FileName));
-                newImage = System.Drawing.Image.FromFile(openFileDialog.FileName);
+                newImage = (Bitmap) Bitmap.FromFile(openFileDialog.FileName);
             }
+            loaded = true;
         }
 
         private void btnDenoise_Click(object sender, RoutedEventArgs e)
         {
-            App.Denoize(newImage);
-            newImage.Save("Temp/temp.png");
-            mainImage.Source = new BitmapImage(new Uri("Temp/temp.png"));
+            if (loaded)
+            {
+                App.Denoize(newImage);
+                newImage.Save("Temp/temp.png");
+                mainImage.Source = new BitmapImage(new Uri("Temp/temp.png"));
+            }
+            else
+            {
+                MessageBox.Show("Сначала загрузите изображение");
+            } 
         }
     }
 }
