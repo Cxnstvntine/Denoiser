@@ -31,16 +31,17 @@ namespace Denoiser
         //Ищем среднее значение пикселей вокруг
         private static Color FindAveragePixel(Bitmap scrBitmap, int i, int j)
         {
+            int Radius = 4;
             int count = 0;
             int a = 0, r = 0, g = 0, b = 0;
             //Если это не один из крайних пикселей
             if (i + 1 <= scrBitmap.Height)
             {
-                for (int x = i; x < i + 1; x++)
+                for (int x = i; x < i + Radius; x++)
                 {
                     if (j + 1 <= scrBitmap.Width)
                     {
-                        for (int y = j; y < j + 1; j++)
+                        for (int y = j; y < j + Radius; j++)
                         {
                             a += scrBitmap.GetPixel(x, y).A;
                             r += scrBitmap.GetPixel(x, y).R;
@@ -70,7 +71,7 @@ namespace Denoiser
                 {
                     if (j + 1 <= scrBitmap.Width)
                     {
-                        for (int y = j; y < j + 1; j++)
+                        for (int y = j; y < j + Radius; j++)
                         {
                             a += scrBitmap.GetPixel(x, y).A;
                             r += scrBitmap.GetPixel(x, y).R;
@@ -92,12 +93,18 @@ namespace Denoiser
                     }
                 }
             }
-            a /= count;
-            r /= count;
-            g /= count;
-            b /= count;
-            Color average = Color.FromArgb(a, r, g, b);
-            return average;
+
+            if (count != 0)
+            {
+                a /= count;
+                r /= count;
+                g /= count;
+                b /= count;
+                Color average = Color.FromArgb(a, r, g, b);
+                return average;
+            }
+
+            return scrBitmap.GetPixel(i, j);
         }
 
         private static bool Broken(Color color, int x, int y, Bitmap scrBitmap)
