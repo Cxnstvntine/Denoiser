@@ -66,7 +66,7 @@ namespace Denoiser
         {
             if (loaded)
             {
-                App.Denoize(newImage);
+                newImage = App.Denoize(newImage);
                 newImage.Save("Temp/temp.png");
                 mainImage.Source = new BitmapImage(new Uri("Temp/temp.png"));
             }
