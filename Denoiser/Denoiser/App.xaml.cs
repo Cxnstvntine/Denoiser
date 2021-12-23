@@ -31,69 +31,106 @@ namespace Denoiser
         //Ищем среднее значение пикселей вокруг
         private static Color FindAveragePixel(Bitmap scrBitmap, int i, int j)
         {
-            int Radius = 4;
+            int Radius = 2;
             int count = 0;
+            int height = scrBitmap.Height;
+            int width = scrBitmap.Width;
             int a = 0, r = 0, g = 0, b = 0;
             //Если это не один из крайних пикселей
-            if (i + 1 <= scrBitmap.Height)
+            if (i + 1 <= height)
             {
                 for (int x = i; x < i + Radius; x++)
                 {
-                    if (j + 1 <= scrBitmap.Width)
+                    if (x >= height)
                     {
-                        for (int y = j; y < j + Radius; j++)
+                        goto END;
+                    }
+                    if (j + 1 <= width)
+                    {
+                        for (int y = j; y < j + Radius; y++)
                         {
-                            a += scrBitmap.GetPixel(x, y).A;
-                            r += scrBitmap.GetPixel(x, y).R;
-                            g += scrBitmap.GetPixel(x, y).G;
-                            b += scrBitmap.GetPixel(x, y).B;
-                            
-                            count++;
+                            if (y >= width)
+                            {
+                                goto END;
+                            }
+                            Color temp = scrBitmap.GetPixel(x, y);
+                            if (temp.IsEmpty == false)
+                            {
+                                a += temp.A;
+                                r += temp.R;
+                                g += temp.G;
+                                b += temp.B;
+                                count++;
+                            }
                         }
                     }
                     //Если справа не дошли до края, но находимся внизу картинки
                     else
                     {
-                        for (int y = j; y < scrBitmap.Width; j++)
+                        for (int y = j; y < width; y++)
                         {
-                            a += scrBitmap.GetPixel(x, y).A;
-                            r += scrBitmap.GetPixel(x, y).R;
-                            g += scrBitmap.GetPixel(x, y).G;
-                            b += scrBitmap.GetPixel(x, y).B;
-                            count++;
+                            if (y >= width)
+                            {
+                                goto END;
+                            }
+                            Color temp = scrBitmap.GetPixel(x, y);
+                            if (temp.IsEmpty == false)
+                            {
+                                a += temp.A;
+                                r += temp.R;
+                                g += temp.G;
+                                b += temp.B;
+                                count++;
+                            }
                         }
                     }
                 }
             }
             else
             {
-                for (int x = i; x < scrBitmap.Height; x++)
+                for (int x = i; x < height; x++)
                 {
-                    if (j + 1 <= scrBitmap.Width)
+                    if (j + 1 <= width)
                     {
-                        for (int y = j; y < j + Radius; j++)
+                        for (int y = j; y < j + Radius; y++)
                         {
-                            a += scrBitmap.GetPixel(x, y).A;
-                            r += scrBitmap.GetPixel(x, y).R;
-                            g += scrBitmap.GetPixel(x, y).G;
-                            b += scrBitmap.GetPixel(x, y).B;
-                            count++;
+                            if (y >= width)
+                            {
+                                goto END;
+                            }
+                            Color temp = scrBitmap.GetPixel(x, y);
+                            if (temp.IsEmpty == false)
+                            {
+                                a += temp.A;
+                                r += temp.R;
+                                g += temp.G;
+                                b += temp.B;
+                                count++;
+                            }
                         }
                     }
                     else
                     {
-                        for (int y = j; y < scrBitmap.Width; j++)
+                        for (int y = j; y < width; y++)
                         {
-                            a += scrBitmap.GetPixel(x, y).A;
-                            r += scrBitmap.GetPixel(x, y).R;
-                            g += scrBitmap.GetPixel(x, y).G;
-                            b += scrBitmap.GetPixel(x, y).B;
-                            count++;
+                            if (y >= width)
+                            {
+                                goto END;
+                            }
+                            Color temp = scrBitmap.GetPixel(x, y);
+                            if (temp.IsEmpty == false)
+                            {
+                                a += temp.A;
+                                r += temp.R;
+                                g += temp.G;
+                                b += temp.B;
+                                count++;
+                            }
                         }
                     }
                 }
             }
-
+            END:
             if (count != 0)
             {
                 a /= count;
