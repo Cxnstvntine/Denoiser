@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\C#\\P\\Denoiser\\Denoiser\\Denoiser.csproj": {}
+    "C:\\C#\\P#2\\Denoiser\\Denoiser\\Denoiser.csproj": {}
   },
   "projects": {
-    "C:\\C#\\P\\Denoiser\\Denoiser\\Denoiser.csproj": {
+    "C:\\C#\\P#2\\Denoiser\\Denoiser\\Denoiser.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\C#\\P\\Denoiser\\Denoiser\\Denoiser.csproj",
+        "projectUniqueName": "C:\\C#\\P#2\\Denoiser\\Denoiser\\Denoiser.csproj",
         "projectName": "Denoiser",
-        "projectPath": "C:\\C#\\P\\Denoiser\\Denoiser\\Denoiser.csproj",
+        "projectPath": "C:\\C#\\P#2\\Denoiser\\Denoiser\\Denoiser.csproj",
         "packagesPath": "C:\\Users\\Андрей\\.nuget\\packages\\",
-        "outputPath": "C:\\C#\\P\\Denoiser\\Denoiser\\obj\\",
+        "outputPath": "C:\\C#\\P#2\\Denoiser\\Denoiser\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -1,3 +1,4 @@
+using System;
 using System.Windows;
 using System.Drawing;
 using System.Windows.Controls;
@@ -9,16 +10,23 @@ namespace Denoiser
     {
         public static Bitmap Denoize(System.Drawing.Bitmap scrBitmap)
         {
-            for (int i = 0; i < scrBitmap.Width; i++)
+            for (int i = 0; i < scrBitmap.Height; i++)
             {
-                for (int j = 0; j < scrBitmap.Height; j++)
+                for (int j = 0; j < scrBitmap.Width; j++)
                 {
                     if (Broken(scrBitmap.GetPixel(i, j), i , j, scrBitmap))
                     {
                         //Среднее значение цвета вокруг пикселя
                         Color averageColor = FindAveragePixel(scrBitmap,i, j); 
                         //Меняем значение пикселя на среднее
-                        scrBitmap.SetPixel(i, j, averageColor);
+                        try
+                        {
+                            scrBitmap.SetPixel(i, j, averageColor);
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
                     }
                     //Иначе ничего не делаем
 
@@ -146,10 +154,11 @@ namespace Denoiser
 
         private static bool Broken(Color color, int x, int y, Bitmap scrBitmap)
         {
+            int compressionRatio = 0;
             Color averageColor = FindAveragePixel(scrBitmap, x, y);
             //Если значение полей цвета пикселя не больше и не меньше среднего, то вовзращаем true
-            if (color.A >= averageColor.A + 10 || color.R >= averageColor.R + 10 || color.G >= averageColor.G + 10 ||
-                color.B >= averageColor.B + 10)
+            if (color.A >= averageColor.A + compressionRatio || color.R >= averageColor.R + compressionRatio || 
+                color.G >= averageColor.G + compressionRatio || color.B >= averageColor.B + compressionRatio)
             {
                 return true;
             }

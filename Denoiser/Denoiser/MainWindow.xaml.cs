@@ -66,7 +66,7 @@ namespace Denoiser
         {
             if (_loaded)
             {
-                _bitmap = App.Denoise(_bitmap);
+                _bitmap = App.Denoize(_bitmap);
                 
                 SaveFileDialog saveFileDialog = new SaveFileDialog();
                 saveFileDialog.Filter = "Image files (*.PNG)|*.PNG";

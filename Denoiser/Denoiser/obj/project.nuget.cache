@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "2hNy/p/hoBrm2dSyTWuFpko7pwmR0fD5wTFWKRLAE4GzN8RobbuYCbMB91Qbm/iGeKB9TD4XR6mch8NwsXVX2A==",
+  "dgSpecHash": "Kk6B1AV6b4Lo08w/LkkEGSNTcsJ5xfYedEhfDj5mQQqkSmubqb9w49v785fhstWPg3DrxpyNvNKr3ZZXZqU5hg==",
   "success": true,
-  "projectFilePath": "C:\\C#\\P\\Denoiser\\Denoiser\\Denoiser.csproj",
+  "projectFilePath": "C:\\C#\\P#2\\Denoiser\\Denoiser\\Denoiser.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
